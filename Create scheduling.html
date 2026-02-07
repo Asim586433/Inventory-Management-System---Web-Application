@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IMS v2 | Pickup Scheduling</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Sidebar Navigation -->
+        <nav class="sidebar">
+            <div class="logo">
+                <i class="fas fa-boxes"></i>
+                <h1>IMS v2</h1>
+            </div>
+            
+            <div class="user-info">
+                <div class="avatar">
+                    <i class="fas fa-user-circle"></i>
+                </div>
+                <div class="user-details">
+                    <h3>Admin User</h3>
+                    <p>Administrator</p>
+                </div>
+            </div>
+            
+            <ul class="nav-menu">
+                <li>
+                    <a href="index.html">
+                        <i class="fas fa-tachometer-alt"></i>
+                        <span>Dashboard</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="inventory.html">
+                        <i class="fas fa-boxes-stacked"></i>
+                        <span>Inventory</span>
+                        <span class="badge inventory-count">24</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="vendor.html">
+                        <i class="fas fa-truck"></i>
+                        <span>Vendors</span>
+                        <span class="badge vendor-count">8</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="buyer.html">
+                        <i class="fas fa-users"></i>
+                        <span>Buyers</span>
+                        <span class="badge buyer-count">45</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="orders.html">
+                        <i class="fas fa-shopping-cart"></i>
+                        <span>Orders</span>
+                        <span class="badge order-count">12</span>
+                    </a>
+                </li>
+                <li class="active">
+                    <a href="scheduling.html">
+                        <i class="fas fa-calendar-alt"></i>
+                        <span>Scheduling</span>
+                        <span class="badge schedule-count">5</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="reports.html">
+                        <i class="fas fa-chart-bar"></i>
+                        <span>Reports</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="admin.html">
+                        <i class="fas fa-cog"></i>
+                        <span>Admin</span>
+                    </a>
+                </li>
+            </ul>
+            
+            <div class="sidebar-footer">
+                <div class="notification" id="notificationToggle">
+                    <i class="fas fa-bell"></i>
+                    <span>Notifications</span>
+                    <span class="badge notification-count">3</span>
+                </div>
+                <div class="logout">
+                    <a href="#" id="logoutBtn">
+                        <i class="fas fa-sign-out-alt"></i>
+                        <span>Logout</span>
+                    </a>
+                </div>
+            </div>
+        </nav>
+        
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Top Header -->
+            <header class="top-header">
+                <div class="header-left">
+                    <h2>Pickup Scheduling</h2>
+                    <p>Manage pickup schedules, time slots, and delivery coordination</p>
+                </div>
+                <div class="header-right">
+                    <div class="search-box">
+                        <i class="fas fa-search"></i>
+                        <input type="text" id="scheduleSearch" placeholder="Search schedules...">
+                    </div>
+                    <div class="header-actions">
+                        <button class="btn-primary" id="createScheduleBtn">
+                            <i class="fas fa-plus"></i> Create Schedule
+                        </button>
+                        <button class="btn-secondary" id="manageTimeSlotsBtn">
+                            <i class="fas fa-clock"></i> Manage Time Slots
+                        </button>
+                    </div>
+                </div>
+            </header>
+            
+            <!-- Schedule Stats -->
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon" style="background-color: #4CAF50;">
+                        <i class="fas fa-calendar-check"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3>Scheduled Today</h3>
+                        <p class="stat-number" id="scheduledToday">5</p>
+                        <p class="stat-change positive">+2 from yesterday</p>
+                    </div>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-icon" style="background-color: #2196F3;">
+                        <i class="fas fa-truck-loading"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3>Pending Pickups</h3>
+                        <p class="stat-number" id="pendingPickups">12</p>
+                        <p class="stat-change positive">-3 this week</p>
+                    </div>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-icon" style="background-color: #FF9800;">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3>Available Slots</h3>
+                        <p class="stat-number" id="availableSlots">24</p>
+                        <p class="stat-change negative">-6 this week</p>
+                    </div>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-icon" style="background-color: #9C27B0;">
+                        <i class="fas fa-calendar-times"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3>Missed Pickups</h3>
+                        <p class="stat-number" id="missedPickups">2</p>
+                        <p class="stat-change negative">+1 this month</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Calendar View -->
+            <div class="content-card full-width">
+                <div class="card-header">
+                    <h3>Pickup Schedule Calendar</h3>
+                    <div class="calendar-controls">
+                        <button class="btn-secondary" id="prevMonth">
+                            <i class="fas fa-chevron-left"></i>
+                        </button>
+                        <h4 id="currentMonth">October 2023</h4>
+                        <button class="btn-secondary" id="nextMonth">
+                            <i class="fas fa-chevron-right"></i>
+                        </button>
+                        <button class="btn-secondary" id="todayBtn">Today</button>
+                        <select id="viewType">
+                            <option value="month">Month View</option>
+                            <option value="week">Week View</option>
+                            <option value="day">Day View</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="calendar-container">
+                    <div class="calendar-header">
+                        <div class="day-header">Sun</div>
+                        <div class="day-header">Mon</div>
+                        <div class="day-header">Tue</div>
+                        <div class="day-header">Wed</div>
+                        <div class="day-header">Thu</div>
+                        <div class="day-header">Fri</div>
+                        <div class="day-header">Sat</div>
+                    </div>
+                    <div class="calendar-body" id="calendarBody">
+                        <!-- Calendar days will be generated dynamically -->
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Upcoming Pickups & Time Slot Management -->
+            <div class="content-grid">
+                <div class="content-card">
+                    <div class="card-header">
+                        <h3>Today's Pickups</h3>
+                        <a href="#" class="view-all">View All</a>
+                    </div>
+                    <div class="pickup-list" id="todaysPickups">
+                        <!-- Today's pickups will be loaded dynamically -->
+                    </div>
+                </div>
+                
+                <div class="content-card">
+                    <div class="card-header">
+                        <h3>Time Slot Availability</h3>
+                        <a href="#" class="view-all">Configure</a>
+                    </div>
+                    <div class="time-slots-management">
+                        <div class="time-slot-day">
+                            <h4>Monday, October 16</h4>
+                            <div class="time-slots-grid">
+                                <div class="time-slot available">
+                                    <span class="slot-time">9:00 AM</span>
+                                    <span class="slot-status">Available</span>
+                                </div>
+                                <div class="time-slot available">
+                                    <span class="slot-time">10:00 AM</span>
+                                    <span class="slot-status">Available</span>
+                                </div>
+                                <div class="time-slot booked">
+                                    <span class="slot-time">11:00 AM</span>
+                                    <span class="slot-status">Booked</span>
+                                </div>
+                                <div class="time-slot available">
+                                    <span class="slot-time">12:00 PM</span>
+                                    <span class="slot-status">Available</span>
+                                </div>
+                                <div class="time-slot available">
+                                    <span class="slot-time">1:00 PM</span>
+                                    <span class="slot-status">Available</span>
+                                </div>
+                                <div class="time-slot booked">
+                                    <span class="slot-time">2:00 PM</span>
+                                    <span class="slot-status">Booked</span>
+                                </div>
+                            </div>
+                        </div>
+                        <button class="btn-secondary full-width" id="addMoreSlots">
+                            <i class="fas fa-plus"></i> Add More Time Slots
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Scheduled Pickups Table -->
+            <div class="content-card full-width">
+                <div class="card-header">
+                    <h3>Scheduled Pickups</h3>
+                    <div class="card-actions">
+                        <button class="btn-secondary" id="exportSchedules">
+                            <i class="fas fa-download"></i> Export
+                        </button>
+                        <button class="btn-secondary" id="sendReminders">
+                            <i class="fas fa-bell"></i> Send Reminders
+                        </button>
+                    </div>
+                </div>
+                <div class="table-container">
+                    <table class="data-table" id="schedulesTable">
+                        <thead>
+                            <tr>
+                                <th>Schedule ID</th>
+                                <th>Order ID</th>
+                                <th>Buyer</th>
+                                <th>Pickup Date</th>
+                                <th>Time Slot</th>
+                                <th>Items</th>
+                                <th>Status</th>
+                                <th>Driver</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="schedulesTableBody">
+                            <!-- Schedule data will be loaded dynamically -->
+                        </tbody>
+                    </table>
+                </div>
+                <div class="table-footer">
+                    <div class="table-info">
+                        Showing <span id="showingSchedules">10</span> of <span id="totalSchedulesCount">24</span> schedules
+                    </div>
+                    <div class="pagination">
+                        <button class="pagination-btn" id="prevSchedulePage" disabled>
+                            <i class="fas fa-chevron-left"></i>
+                        </button>
+                        <span class="page-numbers">
+                            <span id="currentSchedulePage">1</span> of <span id="totalSchedulePages">3</span>
+                        </span>
+                        <button class="pagination-btn" id="nextSchedulePage">
+                            <i class="fas fa-chevron-right"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </main>
+        
+        <!-- Notification Panel -->
+        <div class="notification-panel" id="notificationPanel">
+            <div class="notification-header">
+                <h3>Notifications</h3>
+                <button class="close-notifications" id="closeNotifications">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="notification-list" id="notificationList">
+                <!-- Notifications will be loaded dynamically -->
+            </div>
+        </div>
+    </div>
+    
+    <!-- Create Schedule Modal -->
+    <div class="modal" id="createScheduleModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Schedule New Pickup</h3>
+                <button class="close-modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="createScheduleForm">
+                    <div class="form-group">
+                        <label for="scheduleOrder">Select Order *</label>
+                        <select id="scheduleOrder" required>
+                            <option value="">Select an order</option>
+                            <!-- Order options will be populated dynamically -->
+                        </select>
+                    </div>
+                    
+                    <div class="order-info-preview" id="orderInfoPreview" style="display: none;">
+                        <h4>Order Information</h4>
+                        <div class="info-grid">
+                            <div class="info-item">
+                                <span class="info-label">Buyer:</span>
+                                <span class="info-value" id="previewOrderBuyer">-</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="info-label">Items:</span>
+                                <span class="info-value" id="previewOrderItems">-</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="info-label">Total:</span>
+                                <span class="info-value" id="previewOrderTotal">-</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="info-label">Status:</span>
+                                <span class="info-value" id="previewOrderStatus">-</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="pickupDate">Pickup Date *</label>
+                            <input type="date" id="pickupDate" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="pickupTime">Time Slot *</label>
+                            <select id="pickupTime" required>
+                                <option value="">Select time slot</option>
+                                <!-- Time slots will be populated dynamically -->
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="pickupLocation">Pickup Location *</label>
+                        <select id="pickupLocation" required>
+                            <option value="warehouse_a">Warehouse A - 123 Main St</option>
+                            <option value="warehouse_b">Warehouse B - 456 Oak Ave</option>
+                            <option value="warehouse_c">Warehouse C - 789 Pine Rd</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="assignedDriver">Assign Driver</label>
+                        <select id="assignedDriver">
+                            <option value="">No driver assigned</option>
+                            <option value="driver1">John Smith</option>
+                            <option value="driver2">Maria Garcia</option>
+                            <option value="driver3">Robert Johnson</option>
+                            <option value="driver4">Sarah Williams</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="specialInstructions">Special Instructions</label>
+                        <textarea id="specialInstructions" rows="3" placeholder="Any special instructions for the pickup..."></textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-secondary close-modal">Cancel</button>
+                <button class="btn-primary" id="saveScheduleBtn">Schedule Pickup</button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Toast Notification Container -->
+    <div id="toastContainer"></div>
+    
+    <script src="script.js"></script>
+    <script src="scheduling.js"></script>
+</body>
+</html>
