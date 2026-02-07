@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IMS v2 | Reports & Analytics</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Sidebar Navigation -->
+        <nav class="sidebar">
+            <div class="logo">
+                <i class="fas fa-boxes"></i>
+                <h1>IMS v2</h1>
+            </div>
+            
+            <div class="user-info">
+                <div class="avatar">
+                    <i class="fas fa-user-circle"></i>
+                </div>
+                <div class="user-details">
+                    <h3>Admin User</h3>
+                    <p>Administrator</p>
+                </div>
+            </div>
+            
+            <ul class="nav-menu">
+                <li>
+                    <a href="index.html">
+                        <i class="fas fa-tachometer-alt"></i>
+                        <span>Dashboard</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="inventory.html">
+                        <i class="fas fa-boxes-stacked"></i>
+                        <span>Inventory</span>
+                        <span class="badge inventory-count">24</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="vendor.html">
+                        <i class="fas fa-truck"></i>
+                        <span>Vendors</span>
+                        <span class="badge vendor-count">8</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="buyer.html">
+                        <i class="fas fa-users"></i>
+                        <span>Buyers</span>
+                        <span class="badge buyer-count">45</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="orders.html">
+                        <i class="fas fa-shopping-cart"></i>
+                        <span>Orders</span>
+                        <span class="badge order-count">12</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="scheduling.html">
+                        <i class="fas fa-calendar-alt"></i>
+                        <span>Scheduling</span>
+                        <span class="badge schedule-count">5</span>
+                    </a>
+                </li>
+                <li class="active">
+                    <a href="reports.html">
+                        <i class="fas fa-chart-bar"></i>
+                        <span>Reports</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="admin.html">
+                        <i class="fas fa-cog"></i>
+                        <span>Admin</span>
+                    </a>
+                </li>
+            </ul>
+            
+            <div class="sidebar-footer">
+                <div class="notification" id="notificationToggle">
+                    <i class="fas fa-bell"></i>
+                    <span>Notifications</span>
+                    <span class="badge notification-count">3</span>
+                </div>
+                <div class="logout">
+                    <a href="#" id="logoutBtn">
+                        <i class="fas fa-sign-out-alt"></i>
+                        <span>Logout</span>
+                    </a>
+                </div>
+            </div>
+        </nav>
+        
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Top Header -->
+            <header class="top-header">
+                <div class="header-left">
+                    <h2>Reports & Analytics</h2>
+                    <p>Generate insights, track performance, and analyze business data</p>
+                </div>
+                <div class="header-right">
+                    <div class="date-range-picker">
+                        <i class="far fa-calendar"></i>
+                        <span id="reportDateRange">Last 30 Days</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="header-actions">
+                        <button class="btn-primary" id="generateReportBtn">
+                            <i class="fas fa-plus"></i> Generate Report
+                        </button>
+                    </div>
+                </div>
+            </header>
+            
+            <!-- Report Cards -->
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon" style="background-color: #4CAF50;">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3>Sales Growth</h3>
+                        <p class="stat-number" id="salesGrowth">+15.2%</p>
+                        <p class="stat-change positive">vs last period</p>
+                    </div>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-icon" style="background-color: #2196F3;">
+                        <i class="fas fa-boxes"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3>Inventory Turnover</h3>
+                        <p class="stat-number" id="inventoryTurnover">4.2x</p>
+                        <p class="stat-change positive">+0.5x improvement</p>
+                    </div>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-icon" style="background-color: #FF9800;">
+                        <i class="fas fa-dollar-sign"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3>Avg. Order Value</h3>
+                        <p class="stat-number" id="avgOrderValueReport">$2,450</p>
+                        <p class="stat-change positive">+8% increase</p>
+                    </div>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-icon" style="background-color: #9C27B0;">
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3>Customer Satisfaction</h3>
+                        <p class="stat-number" id="customerSatisfaction">4.7/5</p>
+                        <p class="stat-change positive">+0.3 improvement</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Charts Section -->
+            <div class="content-grid">
+                <div class="content-card">
+                    <div class="card-header">
+                        <h3>Revenue Trend</h3>
+                        <select id="revenuePeriod">
+                            <option value="monthly">Monthly</option>
+                            <option value="weekly">Weekly</option>
+                            <option value="daily">Daily</option>
+                        </select>
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="revenueChart"></canvas>
+                    </div>
+                </div>
+                
+                <div class="content-card">
+                    <div class="card-header">
+                        <h3>Top Selling Categories</h3>
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="categoryChart"></canvas>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Detailed Reports -->
+            <div class="content-card full-width">
+                <div class="card-header">
+                    <h3>Report Library</h3>
+                    <div class="report-actions">
+                        <button class="btn-secondary" id="scheduleReport">
+                            <i class="fas fa-clock"></i> Schedule Report
+                        </button>
+                        <button class="btn-secondary" id="exportAllReports">
+                            <i class="fas fa-download"></i> Export All
+                        </button>
+                    </div>
+                </div>
+                <div class="reports-grid">
+                    <div class="report-card">
+                        <div class="report-icon">
+                            <i class="fas fa-boxes"></i>
+                        </div>
+                        <div class="report-info">
+                            <h4>Inventory Summary</h4>
+                            <p>Comprehensive overview of inventory status, turnover, and valuation</p>
+                            <div class="report-meta">
+                                <span><i class="far fa-clock"></i> Last run: 2 hours ago</span>
+                                <span><i class="far fa-file"></i> PDF, Excel</span>
+                            </div>
+                        </div>
+                        <div class="report-actions">
+                            <button class="btn-small run-report" data-report="inventory">
+                                <i class="fas fa-play"></i> Run
+                            </button>
+                            <button class="btn-small btn-secondary schedule-report" data-report="inventory">
+                                <i class="fas fa-clock"></i> Schedule
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="report-card">
+                        <div class="report-icon">
+                            <i class="fas fa-shopping-cart"></i>
+                        </div>
+                        <div class="report-info">
+                            <h4>Sales Performance</h4>
+                            <p>Detailed analysis of sales trends, top products, and revenue breakdown</p>
+                            <div class="report-meta">
+                                <span><i class="far fa-clock"></i> Last run: Yesterday</span>
+                                <span><i class="far fa-file"></i> PDF, Excel, CSV</span>
+                            </div>
+                        </div>
+                        <div class="report-actions">
+                            <button class="btn-small run-report" data-report="sales">
+                                <i class="fas fa-play"></i> Run
+                            </button>
+                            <button class="btn-small btn-secondary schedule-report" data-report="sales">
+                                <i class="fas fa-clock"></i> Schedule
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="report-card">
+                        <div class="report-icon">
+                            <i class="fas fa-truck"></i>
+                        </div>
+                        <div class="report-info">
+                            <h4>Vendor Performance</h4>
+                            <p>Analysis of vendor reliability, pricing, and delivery performance</p>
+                            <div class="report-meta">
+                                <span><i class="far fa-clock"></i> Last run: 3 days ago</span>
+                                <span><i class="far fa-file"></i> PDF, Excel</span>
+                            </div>
+                        </div>
+                        <div class="report-actions">
+                            <button class="btn-small run-report" data-report="vendor">
+                                <i class="fas fa-play"></i> Run
+                            </button>
+                            <button class="btn-small btn-secondary schedule-report" data-report="vendor">
+                                <i class="fas fa-clock"></i> Schedule
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="report-card">
+                        <div class="report-icon">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <div class="report-info">
+                            <h4>Buyer Analysis</h4>
+                            <p>Customer segmentation, purchase patterns, and retention analysis</p>
+                            <div class="report-meta">
+                                <span><i class="far fa-clock"></i> Last run: 1 week ago</span>
+                                <span><i class="far fa-file"></i> PDF, Excel</span>
+                            </div>
+                        </div>
+                        <div class="report-actions">
+                            <button class="btn-small run-report" data-report="buyer">
+                                <i class="fas fa-play"></i> Run
+                            </button>
+                            <button class="btn-small btn-secondary schedule-report" data-report="buyer">
+                                <i class="fas fa-clock"></i> Schedule
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="report-card">
+                        <div class="report-icon">
+                            <i class="fas fa-calendar-alt"></i>
+                        </div>
+                        <div class="report-info">
+                            <h4>Scheduling Efficiency</h4>
+                            <p>Analysis of pickup schedules, time slot utilization, and delays</p>
+                            <div class="report-meta">
+                                <span><i class="far fa-clock"></i> Last run: 2 weeks ago</span>
+                                <span><i class="far fa-file"></i> PDF, Excel</span>
+                            </div>
+                        </div>
+                        <div class="report-actions">
+                            <button class="btn-small run-report" data-report="scheduling">
+                                <i class="fas fa-play"></i> Run
+                            </button>
+                            <button class="btn-small btn-secondary schedule-report" data-report="scheduling">
+                                <i class="fas fa-clock"></i> Schedule
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="report-card">
+                        <div class="report-icon">
+                            <i class="fas fa-exclamation-triangle"></i>
+                        </div>
+                        <div class="report-info">
+                            <h4>Exception Reports</h4>
+                            <p>Identify exceptions, delays, and issues requiring attention</p>
+                            <div class="report-meta">
+                                <span><i class="far fa-clock"></i> Last run: Today</span>
+                                <span><i class="far fa-file"></i> PDF, Excel</span>
+                            </div>
+                        </div>
+                        <div class="report-actions">
+                            <button class="btn-small run-report" data-report="exceptions">
+                                <i class="fas fa-play"></i> Run
+                            </button>
+                            <button class="btn-small btn-secondary schedule-report" data-report="exceptions">
+                                <i class="fas fa-clock"></i> Schedule
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Custom Report Builder -->
+            <div class="content-card">
+                <div class="card-header">
+                    <h3>Custom Report Builder</h3>
+                </div>
+                <div class="report-builder">
+                    <div class="builder-steps">
+                        <div class="step active">
+                            <span class="step-number">1</span>
+                            <span class="step-label">Data Source</span>
+                        </div>
+                        <div class="step">
+                            <span class="step-number">2</span>
+                            <span class="step-label">Filters</span>
+                        </div>
+                        <div class="step">
+                            <span class="step-number">3</span>
+                            <span class="step-label">Columns</span>
+                        </div>
+                        <div class="step">
+                            <span class="step-number">4</span>
+                            <span class="step-label">Format</span>
+                        </div>
+                    </div>
+                    
+                    <div class="builder-content">
+                        <div class="form-group">
+                            <label for="reportDataSource">Data Source</label>
+                            <select id="reportDataSource">
+                                <option value="">Select data source</option>
+                                <option value="inventory">Inventory</option>
+                                <option value="orders">Orders</option>
+                                <option value="vendors">Vendors</option>
+                                <option value="buyers">Buyers</option>
+                                <option value="schedules">Schedules</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="reportName">Report Name</label>
+                            <input type="text" id="reportName" placeholder="Enter report name">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>Include Charts</label>
+                            <div class="checkbox-group">
+                                <input type="checkbox" id="includeCharts" checked>
+                                <label for="includeCharts">Include charts and graphs in the report</label>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="builder-actions">
+                        <button class="btn-secondary" id="previewReport">Preview</button>
+                        <button class="btn-primary" id="buildReport">Build Report</button>
+                    </div>
+                </div>
+            </div>
+        </main>
+        
+        <!-- Notification Panel -->
+        <div class="notification-panel" id="notificationPanel">
+            <div class="notification-header">
+                <h3>Notifications</h3>
+                <button class="close-notifications" id="closeNotifications">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="notification-list" id="notificationList">
+                <!-- Notifications will be loaded dynamically -->
+            </div>
+        </div>
+    </div>
+    
+    <!-- Generate Report Modal -->
+    <div class="modal" id="generateReportModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Generate Report</h3>
+                <button class="close-modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="reportGeneratorForm">
+                    <div class="form-group">
+                        <label for="reportType">Report Type</label>
+                        <select id="reportType">
+                            <option value="inventory">Inventory Summary</option>
+                            <option value="sales">Sales Performance</option>
+                            <option value="vendor">Vendor Analysis</option>
+                            <option value="buyer">Buyer Analysis</option>
+                            <option value="scheduling">Scheduling Efficiency</option>
+                            <option value="financial">Financial Summary</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="startDate">Start Date</label>
+                            <input type="date" id="startDate" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="endDate">End Date</label>
+                            <input type="date" id="endDate" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="reportFormat">Format</label>
+                        <select id="reportFormat">
+                            <option value="pdf">PDF Document</option>
+                            <option value="excel">Excel Spreadsheet</option>
+                            <option value="csv">CSV File</option>
+                            <option value="html">HTML Report</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="deliveryMethod">Delivery Method</label>
+                        <select id="deliveryMethod">
+                            <option value="download">Download Now</option>
+                            <option value="email">Email Report</option>
+                            <option value="both">Both</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group" id="emailField" style="display: none;">
+                        <label for="reportEmail">Email Address</label>
+                        <input type="email" id="reportEmail" placeholder="Enter email address">
+                    </div>
+                    
+                    <div class="form-group checkbox-group">
+                        <input type="checkbox" id="scheduleRecurring">
+                        <label for="scheduleRecurring">Schedule as recurring report</label>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-secondary close-modal">Cancel</button>
+                <button class="btn-primary" id="generateReportNowBtn">Generate Report</button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Toast Notification Container -->
+    <div id="toastContainer"></div>
+    
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="script.js"></script>
+    <script src="reports.js"></script>
+</body>
+</html>
