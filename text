@@ -1,0 +1,11 @@
+ims-v2/
+├── index.html          # Main dashboard
+├── inventory.html      # Inventory management
+├── vendor.html         # Vendor management  
+├── admin.html          # Admin dashboard
+├── buyer.html          # Buyer system
+├── orders.html         # Order management
+├── scheduling.html     # Pickup scheduling
+├── styles.css          # All CSS styles
+├── script.js           # All JavaScript functionality
+└── assets/             # Images and icons
