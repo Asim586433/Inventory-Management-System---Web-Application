@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IMS v2 | Buyer Management</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Sidebar Navigation -->
+        <nav class="sidebar">
+            <div class="logo">
+                <i class="fas fa-boxes"></i>
+                <h1>IMS v2</h1>
+            </div>
+            
+            <div class="user-info">
+                <div class="avatar">
+                    <i class="fas fa-user-circle"></i>
+                </div>
+                <div class="user-details">
+                    <h3>Admin User</h3>
+                    <p>Administrator</p>
+                </div>
+            </div>
+            
+            <ul class="nav-menu">
+                <li>
+                    <a href="index.html">
+                        <i class="fas fa-tachometer-alt"></i>
+                        <span>Dashboard</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="inventory.html">
+                        <i class="fas fa-boxes-stacked"></i>
+                        <span>Inventory</span>
+                        <span class="badge inventory-count">24</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="vendor.html">
+                        <i class="fas fa-truck"></i>
+                        <span>Vendors</span>
+                        <span class="badge vendor-count">8</span>
+                    </a>
+                </li>
+                <li class="active">
+                    <a href="buyer.html">
+                        <i class="fas fa-users"></i>
+                        <span>Buyers</span>
+                        <span class="badge buyer-count">45</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="orders.html">
+                        <i class="fas fa-shopping-cart"></i>
+                        <span>Orders</span>
+                        <span class="badge order-count">12</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="scheduling.html">
+                        <i class="fas fa-calendar-alt"></i>
+                        <span>Scheduling</span>
+                        <span class="badge schedule-count">5</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="reports.html">
+                        <i class="fas fa-chart-bar"></i>
+                        <span>Reports</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="admin.html">
+                        <i class="fas fa-cog"></i>
+                        <span>Admin</span>
+                    </a>
+                </li>
+            </ul>
+            
+            <div class="sidebar-footer">
+                <div class="notification" id="notificationToggle">
+                    <i class="fas fa-bell"></i>
+                    <span>Notifications</span>
+                    <span class="badge notification-count">3</span>
+                </div>
+                <div class="logout">
+                    <a href="#" id="logoutBtn">
+                        <i class="fas fa-sign-out-alt"></i>
+                        <span>Logout</span>
+                    </a>
+                </div>
+            </div>
+        </nav>
+        
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Top Header -->
+            <header class="top-header">
+                <div class="header-left">
+                    <h2>Buyer Management</h2>
+                    <p>Manage buyer accounts, orders, and relationships</p>
+                </div>
+                <div class="header-right">
+                    <div class="search-box">
+                        <i class="fas fa-search"></i>
+                        <input type="text" id="buyerSearch" placeholder="Search buyers...">
+                    </div>
+                    <div class="header-actions">
+                        <button class="btn-primary" id="addBuyerBtn">
+                            <i class="fas fa-plus"></i> Add New Buyer
+                        </button>
+                        <button class="btn-secondary" id="sendBulkNotification">
+                            <i class="fas fa-bullhorn"></i> Notify All
+                        </button>
+                    </div>
+                </div>
+            </header>
+            
+            <!-- Buyer Stats -->
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon" style="background-color: #4CAF50;">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3>Total Buyers</h3>
+                        <p class="stat-number" id="totalBuyers">45</p>
+                        <p class="stat-change positive">+5 this month</p>
+                    </div>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-icon" style="background-color: #2196F3;">
+                        <i class="fas fa-shopping-cart"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3>Active Buyers</h3>
+                        <p class="stat-number" id="activeBuyers">32</p>
+                        <p class="stat-change positive">+3 this month</p>
+                    </div>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-icon" style="background-color: #FF9800;">
+                        <i class="fas fa-dollar-sign"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3>Total Revenue</h3>
+                        <p class="stat-number" id="buyerRevenue">$124,580</p>
+                        <p class="stat-change positive">+15% this month</p>
+                    </div>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-icon" style="background-color: #9C27B0;">
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3>Avg. Order Value</h3>
+                        <p class="stat-number" id="avgOrderValue">$2,450</p>
+                        <p class="stat-change positive">+8% this quarter</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Buyer Table -->
+            <div class="content-card full-width">
+                <div class="card-header">
+                    <h3>Buyer Directory</h3>
+                    <div class="card-actions">
+                        <button class="btn-secondary" id="exportBuyers">
+                            <i class="fas fa-download"></i> Export
+                        </button>
+                        <button class="btn-secondary" id="createBuyerGroup">
+                            <i class="fas fa-object-group"></i> Create Group
+                        </button>
+                    </div>
+                </div>
+                <div class="table-container">
+                    <table class="data-table" id="buyerTable">
+                        <thead>
+                            <tr>
+                                <th>Buyer ID</th>
+                                <th>Company/Name</th>
+                                <th>Email</th>
+                                <th>Phone</th>
+                                <th>Type</th>
+                                <th>Total Orders</th>
+                                <th>Total Spent</th>
+                                <th>Last Purchase</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="buyerTableBody">
+                            <!-- Buyer data will be loaded dynamically -->
+                        </tbody>
+                    </table>
+                </div>
+                <div class="table-footer">
+                    <div class="table-info">
+                        Showing <span id="showingBuyers">10</span> of <span id="totalBuyersCount">45</span> buyers
+                    </div>
+                    <div class="pagination">
+                        <button class="pagination-btn" id="prevBuyerPage" disabled>
+                            <i class="fas fa-chevron-left"></i>
+                        </button>
+                        <span class="page-numbers">
+                            <span id="currentBuyerPage">1</span> of <span id="totalBuyerPages">5</span>
+                        </span>
+                        <button class="pagination-btn" id="nextBuyerPage">
+                            <i class="fas fa-chevron-right"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Buyer Segmentation -->
+            <div class="content-grid">
+                <div class="content-card">
+                    <div class="card-header">
+                        <h3>Buyer Segmentation</h3>
+                    </div>
+                    <div class="segmentation-chart">
+                        <canvas id="buyerSegmentationChart"></canvas>
+                    </div>
+                    <div class="segmentation-legend">
+                        <div class="legend-item">
+                            <span class="legend-color" style="background-color: #4CAF50;"></span>
+                            <span class="legend-label">Wholesale (40%)</span>
+                        </div>
+                        <div class="legend-item">
+                            <span class="legend-color" style="background-color: #2196F3;"></span>
+                            <span class="legend-label">Retail (35%)</span>
+                        </div>
+                        <div class="legend-item">
+                            <span class="legend-color" style="background-color: #FF9800;"></span>
+                            <span class="legend-label">Individual (15%)</span>
+                        </div>
+                        <div class="legend-item">
+                            <span class="legend-color" style="background-color: #9C27B0;"></span>
+                            <span class="legend-label">Corporate (10%)</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="content-card">
+                    <div class="card-header">
+                        <h3>Top Buyers by Revenue</h3>
+                        <a href="#" class="view-all">View All</a>
+                    </div>
+                    <div class="top-buyers-list" id="topBuyersList">
+                        <!-- Top buyers will be loaded dynamically -->
+                    </div>
+                </div>
+            </div>
+        </main>
+        
+        <!-- Notification Panel -->
+        <div class="notification-panel" id="notificationPanel">
+            <div class="notification-header">
+                <h3>Notifications</h3>
+                <button class="close-notifications" id="closeNotifications">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="notification-list" id="notificationList">
+                <!-- Notifications will be loaded dynamically -->
+            </div>
+        </div>
+    </div>
+    
+    <!-- Add Buyer Modal -->
+    <div class="modal" id="addBuyerModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Add New Buyer</h3>
+                <button class="close-modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="addBuyerForm">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="buyerType">Buyer Type *</label>
+                            <select id="buyerType" required>
+                                <option value="">Select type</option>
+                                <option value="wholesale">Wholesale</option>
+                                <option value="retail">Retail</option>
+                                <option value="individual">Individual</option>
+                                <option value="corporate">Corporate</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="buyerCompany">Company Name</label>
+                            <input type="text" id="buyerCompany" placeholder="Enter company name">
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="buyerName">Contact Person *</label>
+                            <input type="text" id="buyerName" required placeholder="Enter contact person name">
+                        </div>
+                        <div class="form-group">
+                            <label for="buyerEmail">Email *</label>
+                            <input type="email" id="buyerEmail" required placeholder="Enter email address">
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="buyerPhone">Phone *</label>
+                            <input type="tel" id="buyerPhone" required placeholder="Enter phone number">
+                        </div>
+                        <div class="form-group">
+                            <label for="buyerTaxId">Tax ID/VAT Number</label>
+                            <input type="text" id="buyerTaxId" placeholder="Enter tax identification number">
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="buyerAddress">Billing Address</label>
+                        <textarea id="buyerAddress" rows="2" placeholder="Enter billing address"></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="buyerShippingAddress">Shipping Address</label>
+                        <textarea id="buyerShippingAddress" rows="2" placeholder="Enter shipping address (if different)"></textarea>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="buyerPaymentTerms">Payment Terms</label>
+                            <select id="buyerPaymentTerms">
+                                <option value="credit_card">Credit Card</option>
+                                <option value="bank_transfer">Bank Transfer</option>
+                                <option value="check">Check</option>
+                                <option value="cash">Cash</option>
+                                <option value="net30">Net 30</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="buyerCreditLimit">Credit Limit ($)</label>
+                            <input type="number" id="buyerCreditLimit" min="0" step="100" placeholder="0.00">
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="buyerNotes">Notes</label>
+                        <textarea id="buyerNotes" rows="3" placeholder="Enter any additional notes"></textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-secondary close-modal">Cancel</button>
+                <button class="btn-primary" id="saveBuyerBtn">Save Buyer</button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Toast Notification Container -->
+    <div id="toastContainer"></div>
+    
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="script.js"></script>
+    <script src="buyer.js"></script>
+</body>
+</html>
